@@ -1,5 +1,11 @@
+# -*- coding:utf-8; mode:ruby; -*-
+
+require "revdev/revdev.so"
+
 require "revdev/version"
+require "revdev/event_device"
+require "revdev/input_event"
 
 module Revdev
-  # Your code goes here...
+
 end

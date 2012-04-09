@@ -1,10 +1,15 @@
 *.gem
 *.rbc
+*.o
+*.so
+*.dll
+*~
 .bundle
 .config
 .yardoc
 Gemfile.lock
 InstalledFiles
+Makefile
 _yardoc
 coverage
 doc/

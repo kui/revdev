@@ -1,17 +1,20 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path('../lib/revdev/version', __FILE__)
 
-Gem::Specification.new do |gem|
-  gem.authors       = ["Keiichiro Ui"]
-  gem.email         = ["keiichiro.ui@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+Gem::Specification.new do |g|
+  g.name	= "revdev"
+  g.version	= Revdev::VERSION
+  g.authors	= ["Keiichiro Ui"]
+  g.email	= ["keiichiro.ui@gmail.com"]
+  g.summary	= "ruby binding to handling event devices."
+  g.description	= "revdev is a ruby binding to handling event devices."
+  g.homepage	= "https://rubygems.org/gems/revdev"
+  g.files	= `git ls-files`.split($\)
+  # g.files	= Dir.glob 'lib/**/*.rb'
+  # g.files	+= Dir.glob 'ext/**/*.{rb,c,h}'
+  g.executables	= g.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  g.test_files	= g.files.grep(%r{^(test|spec|features)/})
+  g.require_paths	= ["lib"]
+  g.extensions	= Dir.glob 'ext/**/extconf.rb'
 
-  gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "revdev"
-  gem.require_paths = ["lib"]
-  gem.version       = Revdev::VERSION
 end
