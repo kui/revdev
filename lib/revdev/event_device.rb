@@ -47,17 +47,20 @@ module Revdev
       read_ioctl_as_string_with EVIOCGKEY
     end
 
+    def all_leds_status
+      read_ioctl_as_string_with EVIOCGLED
+    end
+
     def all_sounds_status
       read_ioctl_as_string_with EVIOCGSND
     end
 
-    def all_swich_status
+    def all_switch_status
       read_ioctl_as_string_with EVIOCGSW
     end
 
     def read_input_event
-      byte = @file.read InputEvent::SIZEOF
-      InputEvent.new byte
+      InputEvent.new @file.read InputEvent::SIZEOF
     end
 
   end

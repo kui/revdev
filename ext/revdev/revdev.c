@@ -898,4 +898,46 @@ void Init_revdev(void)
   rb_define_const(class_input_event, "FF_STATUS_STOPPED", INT2NUM(FF_STATUS_STOPPED));
   rb_define_const(class_input_event, "FF_STATUS_PLAYING", INT2NUM(FF_STATUS_PLAYING));
   rb_define_const(class_input_event, "FF_STATUS_MAX", INT2NUM(FF_STATUS_MAX));
+
+
+  /*
+   * Force feedback effect types
+   */
+
+  rb_define_const(class_input_event, "FF_RUMBLE", INT2NUM(FF_RUMBLE));
+  rb_define_const(class_input_event, "FF_PERIODIC", INT2NUM(FF_PERIODIC));
+  rb_define_const(class_input_event, "FF_CONSTANT", INT2NUM(FF_CONSTANT));
+  rb_define_const(class_input_event, "FF_SPRING", INT2NUM(FF_SPRING));
+  rb_define_const(class_input_event, "FF_FRICTION", INT2NUM(FF_FRICTION));
+  rb_define_const(class_input_event, "FF_DAMPER", INT2NUM(FF_DAMPER));
+  rb_define_const(class_input_event, "FF_INERTIA", INT2NUM(FF_INERTIA));
+  rb_define_const(class_input_event, "FF_RAMP", INT2NUM(FF_RAMP));
+
+  rb_define_const(class_input_event, "FF_EFFECT_MIN", INT2NUM(FF_EFFECT_MIN));
+  rb_define_const(class_input_event, "FF_EFFECT_MAX", INT2NUM(FF_EFFECT_MAX));
+
+  /*
+   * Force feedback periodic effect types
+   */
+
+  rb_define_const(class_input_event, "FF_SQUARE", INT2NUM(FF_SQUARE));
+  rb_define_const(class_input_event, "FF_TRIANGLE", INT2NUM(FF_TRIANGLE));
+  rb_define_const(class_input_event, "FF_SINE", INT2NUM(FF_SINE));
+  rb_define_const(class_input_event, "FF_SAW_UP", INT2NUM(FF_SAW_UP));
+  rb_define_const(class_input_event, "FF_SAW_DOWN", INT2NUM(FF_SAW_DOWN));
+  rb_define_const(class_input_event, "FF_CUSTOM", INT2NUM(FF_CUSTOM));
+
+  rb_define_const(class_input_event, "FF_WAVEFORM_MIN", INT2NUM(FF_WAVEFORM_MIN));
+  rb_define_const(class_input_event, "FF_WAVEFORM_MAX", INT2NUM(FF_WAVEFORM_MAX));
+
+  /*
+   * Set ff device properties
+   */
+
+  rb_define_const(class_input_event, "FF_GAIN", INT2NUM(FF_GAIN));
+  rb_define_const(class_input_event, "FF_AUTOCENTER", INT2NUM(FF_AUTOCENTER));
+
+  rb_define_const(class_input_event, "FF_MAX", INT2NUM(FF_MAX));
+  rb_define_const(class_input_event, "FF_CNT", INT2NUM(FF_CNT));
+
 }
