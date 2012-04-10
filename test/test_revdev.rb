@@ -121,5 +121,28 @@ class RevdevTest < Test::Unit::TestCase
     end
   end
 
+  def test_write_key_input_event
+    evdev = Revdev::EventDevice.new "/dev/input/event2"
+    puts "writing 'abc' to #{evdev.device_name} ..."
 
+    type_key = Revdev::InputEvent::EV_KEY
+    type_syn = Revdev::InputEvent::EV_SYN
+    code_a = Revdev::InputEvent::KEY_A
+    code_report = Revdev::InputEvent::SYN_REPORT
+    value_press = 1
+    value_release = 0
+    [Revdev::InputEvent.new(nil, type_key, code_a, value_press),
+     Revdev::InputEvent.new(nil, type_key, code_a, value_release),
+     Revdev::InputEvent.new(nil, type_key, code_a, value_press),
+     Revdev::InputEvent.new(nil, type_key, code_a, value_release),
+     Revdev::InputEvent.new(nil, type_syn, code_report, 0)
+    ].each do |ie|
+      p ie
+      evdev.write_input_event ie
+    end
+  end
+
+  def test_constants
+    puts "Revdev::InputEvent::SIZEOF	: #{Revdev::InputEvent::SIZEOF}"
+  end
 end
