@@ -38,7 +38,7 @@ def main
   loop do
     ie = evdev.read_input_event
     next if spec_type and spec_type != ie.hr_type.to_s
-    puts "type:#{ie.hr_type}	code:#{ie.hr_code or ie.code}	value:#{ie.hr_value or ie.value}"
+    puts "type:#{ie.hr_type}	code:#{ie.hr_code or ie.code}	value:#{ie.value}"
   end
 
 end
