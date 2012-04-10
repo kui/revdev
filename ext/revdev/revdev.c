@@ -51,7 +51,33 @@ VALUE input_event_initialize(VALUE self, VALUE byte)
   rb_iv_set(self, "@type", INT2FIX(ie->type));
   rb_iv_set(self, "@code", INT2FIX(ie->code));
   rb_iv_set(self, "@value", INT2NUM(ie->value));
+  // rb_iv_set(self, "raw", Data_Wrap_Struct(rb_cObject, 0, 0, ie));
   return self;
+}
+
+VALUE input_event_to_byte_string(VALUE self)
+{
+  struct input_event ie;
+  struct timeval *t;
+  VALUE tmp;
+
+  tmp = rb_iv_get(self, "@time");
+  Data_Get_Struct(tmp, struct time_object, t);
+  //GetTimeval(tmp, t);
+  // memcpy(&ie.time, &t, sizeof(struct timeval));
+  ie.time = *t;
+
+  tmp = rb_iv_get(self, "@type");
+  ie.type = FIX2UINT(tmp);
+
+  tmp = rb_iv_get(self, "@code");
+  ie.code = FIX2UINT(tmp);
+
+  tmp = rb_iv_get(self, "@value");
+  ie.value = NUM2INT(tmp);
+
+  printf("input_event type:%d, code:%d, value:%d\n", ie.type, ie.code, ie.value);
+  return rb_str_new(&ie, sizeof(struct input_event));
 }
 
 void Init_revdev(void)
@@ -109,14 +135,13 @@ void Init_revdev(void)
   /* Grab/Release device */
   rb_define_const(class_event_device, "EVIOCGRAB", LONG2FIX(EVIOCGRAB));
 
-  class_input_event =
-    rb_define_class_under(module_revdev, "InputEvent", rb_cObject);
-  rb_define_method(class_input_event, "initialize", input_event_initialize, 1);
-
-  rb_define_attr(class_input_event, "time", TRUE, FALSE);
-  rb_define_attr(class_input_event, "type", TRUE, FALSE);
-  rb_define_attr(class_input_event, "code", TRUE, FALSE);
-  rb_define_attr(class_input_event, "value", TRUE, FALSE);
+  class_input_event = rb_define_class_under(module_revdev, "InputEvent", rb_cObject);
+  rb_define_method(class_input_event, "raw_initialize", input_event_initialize, 1);
+  rb_define_method(class_input_event, "to_byte_string", input_event_to_byte_string, 0);
+  rb_define_attr(class_input_event, "time", TRUE, TRUE);
+  rb_define_attr(class_input_event, "type", TRUE, TRUE);
+  rb_define_attr(class_input_event, "code", TRUE, TRUE);
+  rb_define_attr(class_input_event, "value", TRUE, TRUE);
 
   rb_define_const(class_input_event, "SIZEOF", INT2NUM(sizeof(struct input_event)));
 
