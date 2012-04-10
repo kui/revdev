@@ -12,7 +12,7 @@ module Revdev
 
     REVERSE_MAPS = Hash.new
     constants.each do |const|
-      m = const.to_s.match /^(FF_STATUS|[A-Z]{2,4})_/
+      m = const.to_s.match(/^(FF_STATUS|[A-Z]{2,4})_/)
       next if m.nil?
 
       prefix = m[1]
