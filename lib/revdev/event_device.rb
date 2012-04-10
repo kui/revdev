@@ -4,10 +4,10 @@ module Revdev
   class EventDevice
 
     def initialize arg
-      if arg === File
+      if arg.instance_of? File
         @file = arg
       else
-        @file = File.new arg
+        @file = File.new arg, 'r+'
       end
     end
 
@@ -61,6 +61,10 @@ module Revdev
 
     def read_input_event
       InputEvent.new @file.read InputEvent::SIZEOF
+    end
+
+    def write_input_event ie
+      @file.syswrite ie.to_byte_string
     end
 
   end
