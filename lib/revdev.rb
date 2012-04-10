@@ -7,5 +7,6 @@ require "revdev/event_device"
 require "revdev/input_event"
 
 module Revdev
-
+  class EventDevice; end
+  class InputEvent; end
 end
