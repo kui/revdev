@@ -43,8 +43,6 @@ module Revdev
     end
 
     # human readable @code of input event
-    def hr_value
-      # REVERSE_MAPS[:EV_KEY] && REVERSE_MAPS[:EV_KEY][@value] if hr_code == :MSC_SCAN
-    end
+    # def hr_value; end
   end
 end
