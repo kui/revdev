@@ -1,20 +1,26 @@
 # Revdev
 
-TODO: Write a gem description
+revdev is a ruby binding to handling event devices.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'revdev'
+```rb
+gem 'revdev'
+```
 
 And then execute:
 
-    $ bundle
+```sh
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install revdev
+```sh
+$ gem install revdev
+```
 
 ## Usage
 

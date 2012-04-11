@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding:utf-8-unix; mode:ruby; -*-
 require File.expand_path('../lib/revdev/version', __FILE__)
 
 Gem::Specification.new do |g|
