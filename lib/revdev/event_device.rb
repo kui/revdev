@@ -4,7 +4,7 @@ module Revdev
   class EventDevice
 
     def initialize arg
-      if arg.instance_of? File
+      if arg.kind_of? File
         @file = arg
       else
         @file = File.new arg, 'r+'

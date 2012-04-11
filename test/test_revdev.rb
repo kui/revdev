@@ -3,7 +3,7 @@
 require 'test/unit'
 require 'revdev'
 
-class RevdevTest < Test::Unit::TestCase
+class RevdevTest # < Test::Unit::TestCase
 
   # DEVICE_FILE = "/dev/input/event0"
   DEVICE_FILE = "/dev/input/event1"

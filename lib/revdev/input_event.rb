@@ -8,9 +8,9 @@ module Revdev
     # arg: String(byte string), Hash, Time
     # type, code, value: Integer (ignored values if arg is String or Hash)
     def initialize arg, type = nil, code = nil, value = nil
-      if arg.instance_of? String
+      if arg.kind_of? String
         raw_initialize arg
-      elsif arg.instance_of? Hash
+      elsif arg.kind_of? Hash
         @time = arg['time'] || arg[:time] || Time.now
         @type = arg['type'] || arg[:type]
         @code = arg['code'] || arg[:code]
