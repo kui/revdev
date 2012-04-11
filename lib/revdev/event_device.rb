@@ -59,6 +59,14 @@ module Revdev
       read_ioctl_as_string_with EVIOCGSW
     end
 
+    def grab
+      @file.ioctl EVIOCGRAB, 1
+    end
+
+    def ungrab
+      @file.ioctl EVIOCGRAB, 0
+    end
+
     def read_input_event
       InputEvent.new @file.read InputEvent::SIZEOF
     end
