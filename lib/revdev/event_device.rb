@@ -59,10 +59,12 @@ module Revdev
       read_ioctl_as_string_with EVIOCGSW
     end
 
+    # grab all input events of the event device
     def grab
       @file.ioctl EVIOCGRAB, 1
     end
 
+    # release the grabbed event device
     def ungrab
       @file.ioctl EVIOCGRAB, 0
     end
