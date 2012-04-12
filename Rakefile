@@ -8,8 +8,10 @@ require 'rake/clean'
 NAME = 'revdev'
 MAKEFILES = Dir.glob "ext/**/Makefile"
 
+## dir
 directory "lib/#{NAME}"
 
+## so file
 file "lib/#{NAME}/#{NAME}.so" =>
   (Dir.glob("ext/#{NAME}/*.{rb,c}") << "lib/#{NAME}")do
 
@@ -22,9 +24,7 @@ file "lib/#{NAME}/#{NAME}.so" =>
 
 end
 
-desc "Run tests"
-task :test => "lib/#{NAME}/#{NAME}.so"
-
+## make_clean
 desc "do `make clean` with all Makefiles"
 task :make_clean do
   MAKEFILES.each do |file|
@@ -36,10 +36,16 @@ task :make_clean do
   end
 end
 
+## clobber
 CLOBBER.include "lib/**/*.so"
 
+## clean
 CLEAN.include MAKEFILES
 task :clean => :make_clean
+
+## test
+desc "Run tests"
+task :test => "lib/#{NAME}/#{NAME}.so"
 
 class Rake::SudoTestTask < Rake::TestTask
   def define
@@ -51,8 +57,9 @@ class Rake::SudoTestTask < Rake::TestTask
   end
 end
 
-Rake::SudoTestTask.new :test do |t|
+Rake::TestTask.new :test do |t|
   t.verbose = true
 end
 
+## default
 task :default => :test
