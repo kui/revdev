@@ -11,6 +11,7 @@ Gemfile.lock
 InstalledFiles
 Makefile
 _yardoc
+core
 coverage
 doc/
 lib/bundler/man
