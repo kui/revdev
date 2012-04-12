@@ -1,3 +1,3 @@
 require "mkmf"
 
-create_makefile "revdev"
+create_makefile "revdev/revdev"
