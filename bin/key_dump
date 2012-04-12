@@ -5,11 +5,12 @@ require "revdev"
 require "optparse"
 
 USAGE = <<__EOF
-usage: #{$0} event_device
-
+usage:
+    $ #{$0} event_device
   display the infomation about event_device.
 
-example: #{$0} /dev/input/event2
+example:
+    $ #{$0} /dev/input/event2
 
 options:
   -t EV_XXX, --type EV_XXX:
@@ -62,4 +63,4 @@ def main
 
 end
 
-main if $0 == __FILE__
+main
