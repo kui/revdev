@@ -6,17 +6,31 @@ require 'revdev'
 class EventDeviceTest < Test::Unit::TestCase
   include Revdev
 
+  @@target = "test/tmp/file"
+
+  def initialize *args
+    super
+
+    @@target = File.expand_path @@target
+    dir = File.dirname @@target
+    if not File.directory? dir
+      Dir.mkdir dir
+    end
+    FileUtils.touch @@target
+
+  end
+
   def test_init
     assert_nothing_raised do
-      EventDevice.new File.new $0
-      EventDevice.new $0
+      EventDevice.new File.new @@target
+      EventDevice.new @@target
     end
   end
 
   def test_ioctl_string_getters
     return_data = "abc\000\234\90\444"
     expected_data = "abc"
-    file = File.new $0
+    file = File.new @@target
     $data = return_data
 
     def file.ioctl command, data
@@ -35,7 +49,7 @@ class EventDeviceTest < Test::Unit::TestCase
   end
 
   def test_read_input_event
-    file = File.new $0
+    file = File.new @@target
     def file.read a
       "\355\247\205O\000\000\000\000\374M\005\000\000\000\000\000\001\000.\000\001\000\000\000"
     end
@@ -46,7 +60,7 @@ class EventDeviceTest < Test::Unit::TestCase
   end
 
   def test_write_key_input_event
-    file = File.new $0
+    file = File.new @@target
     bytes =  "\355\247\205O\000\000\000\000\374M\005\000\000\000\000\000"+
       "\001\000.\000\001\000\000\000"
     ie = InputEvent.new bytes

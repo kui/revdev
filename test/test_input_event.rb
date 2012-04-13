@@ -14,10 +14,10 @@ class InputEventTest < Test::Unit::TestCase
 
   def test_consts
     puts "## InputEvent Constants"
-    puts "# of consts:	#{Revdev::InputEvent.constants.length}"
-    puts "# of REVERSE_MAP entries:	#{Revdev::InputEvent::REVERSE_MAPS.size}"
+    puts "# of consts:	#{Revdev.constants.length}"
+    puts "# of REVERSE_MAP entries:	#{Revdev::REVERSE_MAPS.size}"
     puts "each size of REVERSE_MAP"
-    InputEvent::REVERSE_MAPS.each do |k,v|
+    REVERSE_MAPS.each do |k,v|
       puts "#{k.inspect}	=> #{v.size}"
     end
   end
