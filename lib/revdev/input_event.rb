@@ -13,10 +13,10 @@ module Revdev
       if arg.kind_of? String
         raw_initialize arg
       elsif arg.kind_of? Hash
-        @time = arg['time'] || arg[:time] || Time.now
-        @type = arg['type'] || arg[:type]
-        @code = arg['code'] || arg[:code]
-        @value = arg['value'] || arg[:value]
+        [:time, :type, :code, :value].each do |iv|
+          instance_variable_set("@#{iv}", arg[iv] || arg[iv.to_s])
+        end
+        @time ||= Time.now
       else
         @time = arg || Time.now
         @type = type

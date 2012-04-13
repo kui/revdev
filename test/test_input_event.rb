@@ -6,6 +6,9 @@ require 'revdev'
 class InputEventTest < Test::Unit::TestCase
   include Revdev
 
+  U16_MAX = 2**16 - 1
+  S32_MAX = 2**31 - 1
+
   def setup
   end
 
@@ -17,9 +20,9 @@ class InputEventTest < Test::Unit::TestCase
     ie = iee = ieee = nil
     assert_nothing_raised do
       t = Time.now
-      ie =  InputEvent.new t, 1, 3, 0
+      ie =  InputEvent.new t, 1, 3, S32_MAX
       p ie
-      iee = InputEvent.new :type => 1, :code => 3, :value => 0, :time => t
+      iee = InputEvent.new :time => t,:type => 1, :code => 3, :value => S32_MAX
       p iee
       ieee = InputEvent.new ie.to_byte_string
       p ieee

@@ -11,10 +11,9 @@ module Revdev
       if arg.kind_of? String
         raw_initialize arg
       elsif arg.kind_of? Hash
-        @bustype = arg[:bustype] || arg['bustype']
-        @vendor = arg[:vendor] || arg['vendor']
-        @product = arg[:product] || arg['product']
-        @version = arg[:version] || arg['version']
+        [:bustype, :vendor, :product, :version].each do |iv|
+          instance_variable_set("@#{iv}", arg[iv] || arg[iv.to_s])
+        end
       else
         @bustype = arg
         @vendor = vendor

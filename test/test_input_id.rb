@@ -6,6 +6,8 @@ require 'revdev'
 class InputIdTest < Test::Unit::TestCase
   include Revdev
 
+  U16_MAX = 2**16 - 1
+
   def setup
   end
 
@@ -17,9 +19,9 @@ class InputIdTest < Test::Unit::TestCase
 
     i = ii = iii = nil
     assert_nothing_raised do
-      i = InputId.new 1, 2, 3, 4
+      i = InputId.new 1, 2, 3, U16_MAX
       p i
-      ii = InputId.new :bustype => 1, :vendor => 2, :product => 3, :version => 4
+      ii = InputId.new :bustype => 1, :vendor => 2, :product => 3, :version => U16_MAX
       p ii
       iii = InputId.new i.to_byte_string
       p iii
