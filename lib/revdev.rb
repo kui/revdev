@@ -2,20 +2,24 @@
 
 require "revdev/revdev.so"
 
+require "revdev/each_values_equal"
+
 require "revdev/version"
 require "revdev/event_device"
 require "revdev/input_event"
+require "revdev/input_id"
 
+# just import linux/input.h
 module Revdev
   class EventDevice; end
   class InputEvent; end
-
+  class InputId; end
 
   PREFIX_CONVERTER = {
     'BTN'	=> 'KEY',
-    'MT'	=> nil,
-    'ID'	=> nil,
-    'BUS'	=> nil
+    'MT'	=> nil, # TODO how to use MT prefix values
+    'ID'	=> nil, # TODO how to use ID prefix values
+    'BUS'	=> nil  # TODO how to use BUS prefix values
   }
 
   REVERSE_MAPS = Hash.new
@@ -32,7 +36,7 @@ module Revdev
     prefix = PREFIX_CONVERTER[prefix] if PREFIX_CONVERTER.has_key? prefix
     next if prefix.nil?
 
-    ev = ('EV_'+prefix).to_sym
+    ev = "EV_#{prefix}".to_sym
     REVERSE_MAPS[ev] ||= Hash.new
     REVERSE_MAPS[ev][const_get const] = const.to_sym
   end

@@ -76,7 +76,7 @@ VALUE input_id_raw_initialize(VALUE self, VALUE byte)
 
   return self;
 }
-VALUE input_id_to_byte_string(VALUE self, VALUE byte)
+VALUE input_id_to_byte_string(VALUE self)
 {
   struct input_id ii;
 

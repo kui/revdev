@@ -4,11 +4,12 @@ module Revdev
 
   # wraper of "struct input_event" on "input.h"
   class InputEvent
+    include EachValuesEqual
     attr_accessor :time, :type, :code, :value
 
     # arg: String(byte string), Hash, Time
     # type, code, value: Integer (ignored values if arg is String or Hash)
-    def initialize arg, type = nil, code = nil, value = nil
+    def initialize arg=nil, type = nil, code = nil, value = nil
       if arg.kind_of? String
         raw_initialize arg
       elsif arg.kind_of? Hash

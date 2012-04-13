@@ -24,25 +24,41 @@ class InputEventTest < Test::Unit::TestCase
 
   def test_init
     assert_nothing_raised do
-      p InputEvent.new "\355\247\205O\000\000\000\000\374M\005\000\000\000\000"+
-        "\000\001\000.\000\001\000\000\000"
-      p InputEvent.new :type => 1, :code => 3, :value => 0
-      p InputEvent.new nil, 1, 3, 0
+      t = Time.now
+      ie =  InputEvent.new t, 1, 3, 0
+      p ie
+      iee = InputEvent.new :type => 1, :code => 3, :value => 0, :time => t
+      p iee
+      ieee = InputEvent.new ie.to_byte_string
+      p ieee
+      assert_equal ie, iee
+      assert_equal ie, ieee
     end
   end
 
   def test_hr_blar
-    ie = InputEvent.new nil, 1, 3, 0
-    assert_equal :EV_KEY, ie.hr_type
-    assert_equal :KEY_2, ie.hr_code
-    assert_equal nil, ie.hr_value
+    assert_nothing_raised do
+      htype = :EV_KEY
+      type = self.class.const_get htype
+      hcode = :KEY_2
+      code = self.class.const_get hcode
+      value = 0
+
+      ie = InputEvent.new nil, type, code, value
+
+      assert_equal htype, ie.hr_type
+      assert_equal hcode, ie.hr_code
+      assert_equal nil, ie.hr_value
+    end
   end
 
   def test_to_byte_string
-    bytes = "\355\247\205O\000\000\000\000\374M\005\000\000\000\000"+
-        "\000\001\000.\000\001\000\000\000"
-    ie = InputEvent.new bytes
-    assert_equal bytes, ie.to_byte_string
+    assert_nothing_raised do
+      t = Time.now
+      ie =  InputEvent.new t, 1, 3, 0
+      iee = InputEvent.new ie.to_byte_string
+      assert_equal ie, iee
+    end
   end
 
 end
