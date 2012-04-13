@@ -18,40 +18,32 @@
 VALUE module_revdev;
 VALUE class_event_device;
 VALUE class_input_event;
+VALUE class_input_id;
+VALUE class_input_absinfo;
+VALUE class_input_keymap_entry;
+VALUE class_ff_replay;
+VALUE class_ff_trigger;
+VALUE class_ff_envelope;
+VALUE class_ff_constant_effect;
+VALUE class_ff_ramp_effect;
+VALUE class_ff_condition_effect;
+VALUE class_ff_periodic_effect;
+VALUE class_ff_rumble_effect;
+VALUE class_ff_effect;
 
-void print_input_event_type(struct input_event *ie)
-{
-  switch(ie->type){
-  case EV_SYN: printf("ev_syn\n"); break;
-  case EV_KEY: printf("ev_key\n"); break;
-  case EV_REL: printf("ev_rel\n"); break;
-  case EV_ABS: printf("ev_abs\n"); break;
-  case EV_LED: printf("ev_led\n"); break;
-  case EV_SND: printf("ev_snd\n"); break;
-  case EV_REP: printf("ev_rep\n"); break;
-  case EV_FF: printf("ev_ff\n"); break;
-  case EV_PWR: printf("ev_pwr\n"); break;
-  case EV_FF_STATUS: printf("ev_ff_status\n"); break;
-  case EV_MAX: printf("ev_max\n"); break;
-  case EV_CNT: printf("ev_cnt\n"); break;
-  default: printf("unknown type\n");
-  }
-}
-
-VALUE input_event_initialize(VALUE self, VALUE byte)
+VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 {
   struct input_event *ie;
   struct timeval t;
 
   ie = RSTRING(byte)->ptr;
   t = ie->time;
-  // printf("input_event type:%d, code:%d, value:%d\n", ie->type, ie->code, ie->value);
 
   rb_iv_set(self, "@time", rb_time_new(t.tv_sec, t.tv_usec));
   rb_iv_set(self, "@type", INT2FIX(ie->type));
   rb_iv_set(self, "@code", INT2FIX(ie->code));
   rb_iv_set(self, "@value", INT2NUM(ie->value));
-  // rb_iv_set(self, "raw", Data_Wrap_Struct(rb_cObject, 0, 0, ie));
+
   return self;
 }
 
@@ -136,7 +128,7 @@ void Init_revdev(void)
   rb_define_const(class_event_device, "EVIOCGRAB", LONG2FIX(EVIOCGRAB));
 
   class_input_event = rb_define_class_under(module_revdev, "InputEvent", rb_cObject);
-  rb_define_method(class_input_event, "raw_initialize", input_event_initialize, 1);
+  rb_define_method(class_input_event, "raw_initialize", input_event_raw_initialize, 1);
   rb_define_method(class_input_event, "to_byte_string", input_event_to_byte_string, 0);
   rb_define_attr(class_input_event, "time", TRUE, TRUE);
   rb_define_attr(class_input_event, "type", TRUE, TRUE);
