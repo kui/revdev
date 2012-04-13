@@ -20,6 +20,16 @@ class EventDeviceTest < Test::Unit::TestCase
 
   end
 
+  def test_consts
+    puts "## InputEvent Constants"
+    puts "# of consts: #{Revdev.constants.length}"
+    puts "# of REVERSE_MAP entries: #{Revdev::REVERSE_MAPS.size}"
+    puts "each # of REVERSE_MAP entries"
+    REVERSE_MAPS.each do |k,v|
+      puts "%15s => %4s" % [k.inspect,v.size]
+    end
+  end
+
   def test_init
     assert_nothing_raised do
       EventDevice.new File.new @@target
@@ -50,21 +60,30 @@ class EventDeviceTest < Test::Unit::TestCase
 
   def test_read_input_event
     file = File.new @@target
-    def file.read a
-      "\355\247\205O\000\000\000\000\374M\005\000\000\000\000\000\001\000.\000\001\000\000\000"
+    ie = InputEvent.new nil, 1, 2, 3
+    $data = ie.to_byte_string
+    $self = self
+
+    def file.read len
+      $self.assert_equal $data.length, len
+      $data
     end
+
     evdev = EventDevice.new file
     assert_nothing_raised do
-      evdev.read_input_event
+      iee = evdev.read_input_event
+      assert_equal ie, iee
     end
   end
 
   def test_write_key_input_event
     file = File.new @@target
-    bytes =  "\355\247\205O\000\000\000\000\374M\005\000\000\000\000\000"+
-      "\001\000.\000\001\000\000\000"
-    ie = InputEvent.new bytes
+    ie = InputEvent.new nil, 1, 2, 3
+    $data = ie.to_byte_string
+    $self = self
+
     def file.syswrite data
+      $self.assert_equal $data, data
     end
 
     evdev = EventDevice.new file

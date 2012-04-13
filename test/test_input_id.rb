@@ -13,6 +13,9 @@ class InputIdTest < Test::Unit::TestCase
   end
 
   def test_init
+    puts
+
+    i = ii = iii = nil
     assert_nothing_raised do
       i = InputId.new 1, 2, 3, 4
       p i
@@ -20,10 +23,10 @@ class InputIdTest < Test::Unit::TestCase
       p ii
       iii = InputId.new i.to_byte_string
       p iii
-
-      assert_equal i, ii
-      assert_equal i, iii
     end
+
+    assert_equal i, ii
+    assert_equal i, iii
   end
 
 end
