@@ -4,6 +4,7 @@ module Revdev
 
   # wraper of "struct input_event" on "input.h"
   class InputEvent
+    attr_accessor :time, :type, :code, :value
 
     # arg: String(byte string), Hash, Time
     # type, code, value: Integer (ignored values if arg is String or Hash)
