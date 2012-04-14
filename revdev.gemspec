@@ -16,5 +16,6 @@ Gem::Specification.new do |g|
   g.test_files	= g.files.grep(%r{^(test|spec|features)/})
   g.require_paths	= ["lib"]
   g.extensions	= Dir.glob 'ext/**/extconf.rb'
-
+  g.add_development_dependency 'rake'
+  g.add_development_dependency 'bundler'
 end
