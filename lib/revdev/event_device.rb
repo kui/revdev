@@ -71,10 +71,13 @@ module Revdev
     end
 
     def read_input_event
-      InputEvent.new @file.sysread InputEvent::SIZEOF
+      ie = InputEvent.new @file.sysread InputEvent::SIZEOF
+      puts "read  #{ie.hr_type}\t#{ie.hr_code}\t#{ie.value}" if $DEBUG
+      ie
     end
 
     def write_input_event ie
+      puts "write #{ie.hr_type}\t#{ie.hr_code}\t#{ie.value}" if $DEBUG
       @file.syswrite ie.to_byte_string
     end
 
