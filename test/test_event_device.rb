@@ -1,6 +1,7 @@
 # -*- coding:utf-8; mode:ruby; -*-
 
 require 'test/unit'
+require 'rubygems'
 require 'revdev'
 
 class EventDeviceTest < Test::Unit::TestCase
@@ -64,7 +65,7 @@ class EventDeviceTest < Test::Unit::TestCase
     $data = ie.to_byte_string
     $self = self
 
-    def file.read len
+    def file.sysread len
       $self.assert_equal $data.length, len
       $data
     end

@@ -14,11 +14,13 @@ module Revdev
         [:bustype, :vendor, :product, :version].each do |iv|
           instance_variable_set("@#{iv}", arg[iv] || arg[iv.to_s])
         end
-      else
+      elsif not ( arg.nil? or vendor.nil? or product.nil? or version.nil? )
         @bustype = arg
         @vendor = vendor
         @product = product
         @version = version
+      else
+        raise ArgumentError, "expected a Hash"
       end
     end
 

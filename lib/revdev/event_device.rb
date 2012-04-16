@@ -70,7 +70,7 @@ module Revdev
     end
 
     def read_input_event
-      InputEvent.new @file.read InputEvent::SIZEOF
+      InputEvent.new @file.sysread InputEvent::SIZEOF
     end
 
     def write_input_event ie
