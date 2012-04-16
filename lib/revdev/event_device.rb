@@ -2,6 +2,7 @@
 
 module Revdev
   class EventDevice
+    attr_reader :file
 
     def initialize arg
       if arg.kind_of? File
