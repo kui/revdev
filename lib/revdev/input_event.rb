@@ -35,7 +35,6 @@ module Revdev
       ht = hr_type
       suffix = Revdev.extract_suffix ht
       return nil if suffix.nil?
-      puts "suffix: #{suffix}"
       map = REVERSE_MAPS[suffix]
       map && map[@code]
     end
