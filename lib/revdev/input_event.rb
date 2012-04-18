@@ -33,8 +33,10 @@ module Revdev
     # human readable @code of input event
     def hr_code
       ht = hr_type
-      return nil if ht.nil?
-      map = REVERSE_MAPS[ht]
+      suffix = Revdev.extract_suffix ht
+      return nil if suffix.nil?
+      puts "suffix: #{suffix}"
+      map = REVERSE_MAPS[suffix]
       map && map[@code]
     end
 

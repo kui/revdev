@@ -24,6 +24,21 @@ module Revdev
       end
     end
 
+    def hr_bustype
+      REVERSE_MAPS[:BUS][@bustype]
+    end
+
+    def hr_version
+      v = @version
+      v_arr = []
+      v_arr << (v & 0xff)
+      2.times do
+        v = (v >> 8)
+        v_arr << (v & 0xff)
+      end
+      v_arr.reverse.join '.'
+    end
+
   end
 
 end

@@ -20,7 +20,7 @@ module Revdev
 
     def driver_version
       r = read_ioctl_with EVIOCGVERSION
-      r.unpack('C')
+      r.unpack('C3')
     end
 
     def device_id

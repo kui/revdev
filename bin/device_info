@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+# -*- coding:utf-8; mode:ruby; -*-
+
+require "revdev"
+require "optparse"
+
+USAGE=<<__EOF
+usage:
+    #{$0} event_device [ event_device [ ... ] ]
+
+  display device informatioin for event_device(s)
+
+example:
+    #{$0} /dev/input/event*
+__EOF
+
+def main
+  include Revdev
+
+  if ARGV.length == 0
+    puts USAGE
+    exit false
+  end
+
+  STDOUT.sync = true
+  puts "path	name	version	bustype	vendor	product	id.version"
+  ARGV.each do |devname|
+    begin
+      evdev = EventDevice.new devname
+      params = []
+      params << evdev.file.path
+      params << evdev.device_name
+      params << evdev.driver_version.join('.')
+      id = evdev.device_id
+      params << "#{id.hr_bustype}(#{id.bustype})"
+      params << id.vendor
+      params << id.product
+      params << id.hr_version || id.version
+      puts params.join '	'
+    rescue => e
+      p e
+    end
+  end
+
+end
+
+main
