@@ -20,7 +20,11 @@ module Revdev
 
     def driver_version
       r = read_ioctl_with EVIOCGVERSION
-      r.unpack('i').first
+      r.unpack('C')
+    end
+
+    def device_id
+      InputId.new read_ioctl_with EVIOCGID
     end
 
     def read_ioctl_as_string_with command
