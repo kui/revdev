@@ -3,7 +3,40 @@
 
 require 'revdev'
 
+USAGE = <<__USAGE
+usage: #{$0} <device> <command> <on/off>
+	light <on/off> <command> to <device>
+
+example: #{$0} /dev/input/event2 LED_CAPSL ON
+
+command list:
+	#{
+Revdev.constants.delete_if do |c|
+  not c.match(/^LED_/)
+end.delete_if do |c|
+  c.match(/^LED_(?:CNT|MAX)$/)
+end.join("\n	")}
+__USAGE
+
 def main
+  include Revdev
+
+  if not (ARGV.length == 3 and ARGV[1].match(/^LED_/) and ARGV[2].match(/^ON|OFF$/i))
+    puts USAGE
+    exit false
+  end
+
+  dev = ARGV.shift
+  cmd = ARGV.shift
+  st = ARGV.shift.upcase == 'ON' ? 1 : 0
+
+  ed = EventDevice.new dev
+  ie = InputEvent.new nil, EV_LED, self.class.const_get(cmd), st
+  ed.write_input_event ie
+  puts "# send <#{cmd}> <#{st}> to #{dev}"
+  ed.all_leds_status.each do |k,v|
+    puts "#{k}	#{(v ? 'on' : 'off')}"
+  end
 end
 
 main
