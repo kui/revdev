@@ -4,6 +4,8 @@ module Revdev
   class EventDevice
     attr_reader :file
 
+    ONE_CHAR_CODE = '1'[0]
+
     def initialize arg
       if arg.kind_of? File
         @file = arg
@@ -56,20 +58,33 @@ module Revdev
       r = read_ioctl_with EVIOCGLED
       r = r.unpack("b#{LED_MAX}")[0]
       m = {}
-      one_code = '1'[0]
       LED_MAX.times do |i|
         break if REVERSE_MAPS[:LED][i].nil?
-        m[REVERSE_MAPS[:LED][i]] = (r[i] == one_code)
+        m[REVERSE_MAPS[:LED][i]] = (r[i] == ONE_CHAR_CODE)
       end
       m
     end
 
     def all_sounds_status
-      read_ioctl_as_string_with EVIOCGSND
+      r = read_ioctl_with EVIOCGSND
+      r = r.unpack("b#{LED_MAX}")[0]
+      m = {}
+      SND_MAX.times do |i|
+        break if REVERSE_MAPS[:SND][i].nil?
+        m[REVERSE_MAPS[:SND][i]] = (r[i] == ONE_CHAR_CODE)
+      end
+      m
     end
 
     def all_switch_status
-      read_ioctl_as_string_with EVIOCGSW
+      r = read_ioctl_with EVIOCGSW
+      r = r.unpack("b#{LED_MAX}")[0]
+      m = {}
+      SW_MAX.times do |i|
+        break if REVERSE_MAPS[:SW][i].nil?
+        m[REVERSE_MAPS[:SW][i]] = (r[i] == ONE_CHAR_CODE)
+      end
+      m
     end
 
     # grab all input events of the event device
