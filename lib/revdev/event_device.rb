@@ -53,7 +53,15 @@ module Revdev
     end
 
     def all_leds_status
-      read_ioctl_as_string_with EVIOCGLED
+      r = read_ioctl_with EVIOCGLED
+      r = r.unpack("b#{LED_MAX}")[0]
+      m = {}
+      one_code = '1'[0]
+      LED_MAX.times do |i|
+        break if REVERSE_MAPS[:LED][i].nil?
+        m[REVERSE_MAPS[:LED][i]] = (r[i] == one_code)
+      end
+      m
     end
 
     def all_sounds_status
