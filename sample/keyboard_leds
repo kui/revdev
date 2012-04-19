@@ -1,0 +1,9 @@
+#!/usr/bin env ruby
+# -*- coding:utf-8-unix; mode:ruby; -*-
+
+require 'revdev'
+
+def main
+end
+
+main
