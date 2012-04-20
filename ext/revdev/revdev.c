@@ -846,7 +846,9 @@ void Init_revdev(void)
 
   rb_define_const(module_revdev, "ABS_MISC", INT2NUM(ABS_MISC));
 
+#ifdef ABS_MT_SLOT
   rb_define_const(module_revdev, "ABS_MT_SLOT", INT2NUM(ABS_MT_SLOT));/* MT slot being modified */
+#endif
   rb_define_const(module_revdev, "ABS_MT_TOUCH_MAJOR", INT2NUM(ABS_MT_TOUCH_MAJOR));/* Major axis of touching ellipse */
   rb_define_const(module_revdev, "ABS_MT_TOUCH_MINOR", INT2NUM(ABS_MT_TOUCH_MINOR));/* Minor axis (omit if circular) */
   rb_define_const(module_revdev, "ABS_MT_WIDTH_MAJOR", INT2NUM(ABS_MT_WIDTH_MAJOR));/* Major axis of approaching ellipse */
@@ -857,8 +859,12 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "ABS_MT_TOOL_TYPE", INT2NUM(ABS_MT_TOOL_TYPE));/* Type of touching device */
   rb_define_const(module_revdev, "ABS_MT_BLOB_ID", INT2NUM(ABS_MT_BLOB_ID));/* Group a set of packets as a blob */
   rb_define_const(module_revdev, "ABS_MT_TRACKING_ID", INT2NUM(ABS_MT_TRACKING_ID));/* Unique ID of initiated contact */
+#ifdef ABS_MT_PRESSURE
   rb_define_const(module_revdev, "ABS_MT_PRESSURE", INT2NUM(ABS_MT_PRESSURE));/* Pressure on contact area */
+#endif
+#ifdef ABS_MT_DISTANCE
   rb_define_const(module_revdev, "ABS_MT_DISTANCE", INT2NUM(ABS_MT_DISTANCE));/* Contact hover distance */
+#endif
 
 
   rb_define_const(module_revdev, "ABS_MAX", INT2NUM(ABS_MAX));
