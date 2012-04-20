@@ -147,8 +147,10 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "EVIOCGPHYS", LONG2FIX(EVIOCGPHYS(BUFF_SIZE)));
   /* get unique identifier */
   rb_define_const(module_revdev, "EVIOCGUNIQ", LONG2FIX(EVIOCGUNIQ(BUFF_SIZE)));
+#ifdef EVIOCGPROP
   /* get device properties */
   rb_define_const(module_revdev, "EVIOCGPROP", LONG2FIX(EVIOCGPROP(BUFF_SIZE)));
+#endif
   /* get global key state */
   rb_define_const(module_revdev, "EVIOCGKEY", LONG2FIX(EVIOCGKEY(BUFF_SIZE)));
   /* get all LEDs */

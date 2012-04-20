@@ -52,7 +52,7 @@ class EventDeviceTest < Test::Unit::TestCase
       end
     end
 
-    [:device_name, :physical_location, :uniq_id, :device_prop, :global_key_state,
+    [:device_name, :physical_location, :uniq_id, :global_key_state,
     :all_leds_status, :all_sounds_status, :all_switch_status].each do |m|
       evdev = EventDevice.new file
       assert_equal expected_data, evdev.method(m).call

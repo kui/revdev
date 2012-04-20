@@ -46,8 +46,10 @@ module Revdev
       read_ioctl_as_string_with EVIOCGUNIQ
     end
 
-    def device_prop
-      read_ioctl_as_string_with EVIOCGPROP
+    if const_defined? :EVIOCGPROP
+      def device_prop
+        read_ioctl_as_string_with EVIOCGPROP
+      end
     end
 
     def global_key_state
