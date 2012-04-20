@@ -132,14 +132,14 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "EVIOCSREP", LONG2FIX(EVIOCSREP));
   /* get keycode */
   rb_define_const(module_revdev, "EVIOCGKEYCODE", LONG2FIX(EVIOCGKEYCODE));
-  #ifdef EVIOCGKEYCODE_V2
+#ifdef EVIOCGKEYCODE_V2
   rb_define_const(module_revdev, "EVIOCGKEYCODE_V2", LONG2FIX(EVIOCGKEYCODE_V2));
-  #endif
+#endif
   /* set keycode */
   rb_define_const(module_revdev, "EVIOCSKEYCODE", LONG2FIX(EVIOCSKEYCODE));
-  #ifdef EVIOCSKEYCODE_V2
+#ifdef EVIOCSKEYCODE_V2
   rb_define_const(module_revdev, "EVIOCSKEYCODE_V2", LONG2FIX(EVIOCSKEYCODE_V2));
-  #endif
+#endif
 
   /* get device name */
   rb_define_const(module_revdev, "EVIOCGNAME", LONG2FIX(EVIOCGNAME(BUFF_SIZE)));
@@ -178,13 +178,24 @@ void Init_revdev(void)
    * Device properties and quirks
    */
 
+#ifdef INPUT_PROP_POINTER
   rb_define_const(module_revdev, "INPUT_PROP_POINTER", INT2NUM(INPUT_PROP_POINTER));/* needs a pointer */
+#endif
+#ifdef INPUT_PROP_DIRECT
   rb_define_const(module_revdev, "INPUT_PROP_DIRECT", INT2NUM(INPUT_PROP_DIRECT));/* direct input devices */
+#endif
+#ifdef INPUT_PROP_BUTTONPAD
   rb_define_const(module_revdev, "INPUT_PROP_BUTTONPAD", INT2NUM(INPUT_PROP_BUTTONPAD));/* has button(s) under pad */
+#endif
+#ifdef INPUT_PROP_SEMI_MT
   rb_define_const(module_revdev, "INPUT_PROP_SEMI_MT", INT2NUM(INPUT_PROP_SEMI_MT));/* touch rectangle only */
-
+#endif
+#ifdef INPUT_PROP_MAX
   rb_define_const(module_revdev, "INPUT_PROP_MAX", INT2NUM(INPUT_PROP_MAX));
+#endif
+#ifdef INPUT_PROP_CNT
   rb_define_const(module_revdev, "INPUT_PROP_CNT", INT2NUM(INPUT_PROP_CNT));
+#endif
 
   /*
    * Event types
@@ -212,7 +223,9 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "SYN_REPORT", INT2NUM(SYN_REPORT));
   rb_define_const(module_revdev, "SYN_CONFIG", INT2NUM(SYN_CONFIG));
   rb_define_const(module_revdev, "SYN_MT_REPORT", INT2NUM(SYN_MT_REPORT));
+#ifdef SYN_DROPPED
   rb_define_const(module_revdev, "SYN_DROPPED", INT2NUM(SYN_DROPPED));
+#endif
 
   /*
    * Keys and buttons
@@ -481,7 +494,9 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "KEY_DISPLAY_OFF", INT2NUM(KEY_DISPLAY_OFF));/* display device to off state */
 
   rb_define_const(module_revdev, "KEY_WIMAX", INT2NUM(KEY_WIMAX));
+#ifdef KEY_RFKILL
   rb_define_const(module_revdev, "KEY_RFKILL", INT2NUM(KEY_RFKILL));/* Key that controls all radios */
+#endif
 
   /* Code 255 is reserved for special needs of AT keyboard driver */
 
@@ -649,9 +664,15 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "KEY_FRAMEFORWARD", INT2NUM(KEY_FRAMEFORWARD));
   rb_define_const(module_revdev, "KEY_CONTEXT_MENU", INT2NUM(KEY_CONTEXT_MENU));/* GenDesc - system context menu */
   rb_define_const(module_revdev, "KEY_MEDIA_REPEAT", INT2NUM(KEY_MEDIA_REPEAT));/* Consumer - transport control */
+#ifdef KEY_10CHANNELSUP
   rb_define_const(module_revdev, "KEY_10CHANNELSUP", INT2NUM(KEY_10CHANNELSUP));/* 10 channels up (10+) */
+#endif
+#ifdef KEY_10CHANNELSDOWN
   rb_define_const(module_revdev, "KEY_10CHANNELSDOWN", INT2NUM(KEY_10CHANNELSDOWN));/* 10 channels down (10-) */
+#endif
+#ifdef KEY_IMAGES
   rb_define_const(module_revdev, "KEY_IMAGES", INT2NUM(KEY_IMAGES));/* AL Image Browser */
+#endif
 
   rb_define_const(module_revdev, "KEY_DEL_EOL", INT2NUM(KEY_DEL_EOL));
   rb_define_const(module_revdev, "KEY_DEL_EOS", INT2NUM(KEY_DEL_EOS));
@@ -704,20 +725,29 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "KEY_NUMERIC_STAR", INT2NUM(KEY_NUMERIC_STAR));
   rb_define_const(module_revdev, "KEY_NUMERIC_POUND", INT2NUM(KEY_NUMERIC_POUND));
 
+#ifdef KEY_CAMERA_FOCUS
   rb_define_const(module_revdev, "KEY_CAMERA_FOCUS", INT2NUM(KEY_CAMERA_FOCUS));
+#endif
+#ifdef KEY_WPS_BUTTON
   rb_define_const(module_revdev, "KEY_WPS_BUTTON", INT2NUM(KEY_WPS_BUTTON));/* WiFi Protected Setup key */
+#endif
 
+#ifdef KEY_TOUCHPAD_TOGGLE
   rb_define_const(module_revdev, "KEY_TOUCHPAD_TOGGLE", INT2NUM(KEY_TOUCHPAD_TOGGLE));/* Request switch touchpad on or off */
   rb_define_const(module_revdev, "KEY_TOUCHPAD_ON", INT2NUM(KEY_TOUCHPAD_ON));
   rb_define_const(module_revdev, "KEY_TOUCHPAD_OFF", INT2NUM(KEY_TOUCHPAD_OFF));
+#endif
 
+#ifdef KEY_CAMERA_ZOOMIN
   rb_define_const(module_revdev, "KEY_CAMERA_ZOOMIN", INT2NUM(KEY_CAMERA_ZOOMIN));
   rb_define_const(module_revdev, "KEY_CAMERA_ZOOMOUT", INT2NUM(KEY_CAMERA_ZOOMOUT));
   rb_define_const(module_revdev, "KEY_CAMERA_UP", INT2NUM(KEY_CAMERA_UP));
   rb_define_const(module_revdev, "KEY_CAMERA_DOWN", INT2NUM(KEY_CAMERA_DOWN));
   rb_define_const(module_revdev, "KEY_CAMERA_LEFT", INT2NUM(KEY_CAMERA_LEFT));
   rb_define_const(module_revdev, "KEY_CAMERA_RIGHT", INT2NUM(KEY_CAMERA_RIGHT));
+#endif
 
+#ifdef BTN_TRIGGER_HAPPY
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY", INT2NUM(BTN_TRIGGER_HAPPY));
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY1", INT2NUM(BTN_TRIGGER_HAPPY1));
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY2", INT2NUM(BTN_TRIGGER_HAPPY2));
@@ -759,6 +789,7 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY38", INT2NUM(BTN_TRIGGER_HAPPY38));
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY39", INT2NUM(BTN_TRIGGER_HAPPY39));
   rb_define_const(module_revdev, "BTN_TRIGGER_HAPPY40", INT2NUM(BTN_TRIGGER_HAPPY40));
+#endif
 
   /* We avoid low common keys in module aliases so they don't get huge. */
   rb_define_const(module_revdev, "KEY_MIN_INTERESTING", INT2NUM(KEY_MIN_INTERESTING));
