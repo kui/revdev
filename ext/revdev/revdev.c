@@ -885,10 +885,18 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "SW_LINEOUT_INSERT", INT2NUM(SW_LINEOUT_INSERT));/* set = inserted */
   rb_define_const(module_revdev, "SW_JACK_PHYSICAL_INSERT", INT2NUM(SW_JACK_PHYSICAL_INSERT));/* set = mechanical switch set */
   rb_define_const(module_revdev, "SW_VIDEOOUT_INSERT", INT2NUM(SW_VIDEOOUT_INSERT));/* set = inserted */
+#ifdef SW_CAMERA_LENS_COVER
   rb_define_const(module_revdev, "SW_CAMERA_LENS_COVER", INT2NUM(SW_CAMERA_LENS_COVER));/* set = lens covered */
+#endif
+#ifdef SW_KEYPAD_SLIDE
   rb_define_const(module_revdev, "SW_KEYPAD_SLIDE", INT2NUM(SW_KEYPAD_SLIDE));/* set = keypad slide out */
+#endif
+#ifdef SW_FRONT_PROXIMITY
   rb_define_const(module_revdev, "SW_FRONT_PROXIMITY", INT2NUM(SW_FRONT_PROXIMITY));/* set = front proximity sensor active */
+#endif
+#ifdef SW_ROTATE_LOCK
   rb_define_const(module_revdev, "SW_ROTATE_LOCK", INT2NUM(SW_ROTATE_LOCK));/* set = rotate locked/disabled */
+#endif
   rb_define_const(module_revdev, "SW_MAX", INT2NUM(SW_MAX));
   rb_define_const(module_revdev, "SW_CNT", INT2NUM(SW_CNT));
 
@@ -929,7 +937,9 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "REP_DELAY", INT2NUM(REP_DELAY));
   rb_define_const(module_revdev, "REP_PERIOD", INT2NUM(REP_PERIOD));
   rb_define_const(module_revdev, "REP_MAX", INT2NUM(REP_MAX));
+#ifdef REP_CNT
   rb_define_const(module_revdev, "REP_CNT", INT2NUM(REP_CNT));
+#endif
 
   /*
    * Sounds
@@ -969,14 +979,18 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "BUS_HOST", INT2NUM(BUS_HOST));
   rb_define_const(module_revdev, "BUS_GSC", INT2NUM(BUS_GSC));
   rb_define_const(module_revdev, "BUS_ATARI", INT2NUM(BUS_ATARI));
+#ifdef BUS_SPI
   rb_define_const(module_revdev, "BUS_SPI", INT2NUM(BUS_SPI));
+#endif
 
   /*
    * MT_TOOL types
    */
   rb_define_const(module_revdev, "MT_TOOL_FINGER", INT2NUM(MT_TOOL_FINGER));
   rb_define_const(module_revdev, "MT_TOOL_PEN", INT2NUM(MT_TOOL_PEN));
+#ifdef MT_TOOL
   rb_define_const(module_revdev, "MT_TOOL_MAX", INT2NUM(MT_TOOL_MAX));
+#endif
 
   /*
    * Values describing the status of a force-feedback effect
