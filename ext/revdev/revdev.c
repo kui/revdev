@@ -132,10 +132,14 @@ void Init_revdev(void)
   rb_define_const(module_revdev, "EVIOCSREP", LONG2FIX(EVIOCSREP));
   /* get keycode */
   rb_define_const(module_revdev, "EVIOCGKEYCODE", LONG2FIX(EVIOCGKEYCODE));
+  #ifdef EVIOCGKEYCODE_V2
   rb_define_const(module_revdev, "EVIOCGKEYCODE_V2", LONG2FIX(EVIOCGKEYCODE_V2));
+  #endif
   /* set keycode */
   rb_define_const(module_revdev, "EVIOCSKEYCODE", LONG2FIX(EVIOCSKEYCODE));
+  #ifdef EVIOCSKEYCODE_V2
   rb_define_const(module_revdev, "EVIOCSKEYCODE_V2", LONG2FIX(EVIOCSKEYCODE_V2));
+  #endif
 
   /* get device name */
   rb_define_const(module_revdev, "EVIOCGNAME", LONG2FIX(EVIOCGNAME(BUFF_SIZE)));
