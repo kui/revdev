@@ -52,12 +52,13 @@ class EventDeviceTest < Test::Unit::TestCase
       end
     end
 
-    [:device_name, :physical_location, :uniq_id, :global_key_state,
-    :all_leds_status, :all_sounds_status, :all_switch_status].each do |m|
+    [:device_name, :physical_location, :uniq_id, :global_key_state].each do |m|
       evdev = EventDevice.new file
       assert_equal expected_data, evdev.method(m).call
     end
   end
+
+  # TODO test all_*_status
 
   def test_read_input_event
     file = File.new @@target
