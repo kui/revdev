@@ -5,7 +5,12 @@
 #include <linux/input.h>
 
 #include <ruby.h>
+#ifdef RUBY_1_8
+#include <rubyio.h>
+#endif
+#ifdef RUBY_1_9
 #include <ruby/io.h>
+#endif
 
 #define NAME "Revdev"
 #define BUFF_SIZE 255
@@ -52,7 +57,14 @@ VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 VALUE input_event_to_byte_string(VALUE self)
 {
   struct input_event ie;
-  ie.time=rb_time_timeval(rb_iv_get(self, "@time"));
+#ifdef RUBY_1_8
+  struct timeval *t;
+  Data_Get_Struct(rb_iv_get(self, "@time"), struct time_object, t);
+  ie.time = *t;
+#endif
+#ifdef RUBY_1_9
+  ie.time = rb_time_timeval(rb_iv_get(self, "@time"));
+#endif
 
   ie.type = FIX2UINT(rb_iv_get(self, "@type"));
   ie.code = FIX2UINT(rb_iv_get(self, "@code"));
