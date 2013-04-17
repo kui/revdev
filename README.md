@@ -1,8 +1,10 @@
-# Revdev
+Revdev
+=================
 
 revdev is a ruby binding to handling event devices.
 
-## Installation
+Installation
+--------------
 
 Add this line to your application's Gemfile:
 
@@ -22,14 +24,24 @@ Or install it yourself as:
 $ gem install revdev
 ```
 
-## Usage
 
-TODO: Write usage instructions here
+Example Usage
+----------------------
 
-## Contributing
+In terminal:
+
+```sh
+ruby -Ilib sample/device_name /dev/input/event*
+ruby -Ilib sample/key_dump /dev/input/event4
+...
+```
+
+Contributing
+-------------------------
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
+	* Please check with `test` to execute `$ rake`
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
