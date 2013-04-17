@@ -5,7 +5,7 @@
 #include <linux/input.h>
 
 #include <ruby.h>
-#include <rubyio.h>
+#include <ruby/io.h>
 
 #define NAME "Revdev"
 #define BUFF_SIZE 255
@@ -38,7 +38,7 @@ VALUE input_event_raw_initialize(VALUE self, VALUE byte)
   struct input_event *ie;
   struct timeval t;
 
-  ie = RSTRING(byte)->ptr;
+  ie = RSTRING_PTR(byte);
   t = ie->time;
 
   rb_iv_set(self, "@time", rb_time_new(t.tv_sec, t.tv_usec));
@@ -52,10 +52,7 @@ VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 VALUE input_event_to_byte_string(VALUE self)
 {
   struct input_event ie;
-  struct timeval *t;
-
-  Data_Get_Struct(rb_iv_get(self, "@time"), struct time_object, t);
-  ie.time = *t;
+  ie.time=rb_time_timeval(rb_iv_get(self, "@time"));
 
   ie.type = FIX2UINT(rb_iv_get(self, "@type"));
   ie.code = FIX2UINT(rb_iv_get(self, "@code"));
@@ -67,7 +64,7 @@ VALUE input_event_to_byte_string(VALUE self)
 VALUE input_id_raw_initialize(VALUE self, VALUE byte)
 {
   struct input_id *ii;
-  ii = RSTRING(byte)->ptr;
+  ii = RSTRING_PTR(byte);
 
   rb_iv_set(self, "@bustype", INT2FIX(ii->bustype));
   rb_iv_set(self, "@vendor", INT2FIX(ii->vendor));
