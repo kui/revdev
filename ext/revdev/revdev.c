@@ -52,10 +52,7 @@ VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 VALUE input_event_to_byte_string(VALUE self)
 {
   struct input_event ie;
-  struct timeval *t;
-
-  Data_Get_Struct(rb_iv_get(self, "@time"), struct time_object, t);
-  ie.time = *t;
+  ie.time=rb_time_timeval(rb_iv_get(self, "@time"));
 
   ie.type = FIX2UINT(rb_iv_get(self, "@type"));
   ie.code = FIX2UINT(rb_iv_get(self, "@code"));
