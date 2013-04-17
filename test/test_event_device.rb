@@ -74,7 +74,9 @@ class EventDeviceTest < Test::Unit::TestCase
     evdev = EventDevice.new file
     assert_nothing_raised do
       iee = evdev.read_input_event
-      assert_equal ie, iee
+      assert_equal ie.code, iee.code
+      assert_equal ie.type, iee.type
+      assert_equal ie.value, iee.value
     end
   end
 

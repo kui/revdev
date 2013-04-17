@@ -27,8 +27,15 @@ class InputEventTest < Test::Unit::TestCase
       ieee = InputEvent.new ie.to_byte_string
       p ieee
     end
-    assert_equal ie, iee
-    assert_equal ie, ieee
+
+    assert_equal ie.code, iee.code
+    assert_equal ie.type, iee.type
+    assert_equal ie.time, iee.time
+    assert_equal ie.value, iee.value
+
+    assert_equal ie.code, ieee.code
+    assert_equal ie.type, ieee.type
+    assert_equal ie.value, ieee.value
   end
 
   def test_hr_blar
@@ -54,7 +61,10 @@ class InputEventTest < Test::Unit::TestCase
     assert_nothing_raised do
       iee = InputEvent.new ie.to_byte_string
     end
-    assert_equal ie, iee
+
+    assert_equal ie.code, iee.code
+    assert_equal ie.type, iee.type
+    assert_equal ie.value, iee.value
   end
 
 end
