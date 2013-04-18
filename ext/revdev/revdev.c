@@ -40,10 +40,12 @@ VALUE class_ff_effect;
 
 VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 {
+  char *p;
   struct input_event *ie;
   struct timeval t;
 
-  ie = RSTRING_PTR(byte);
+  p = RSTRING_PTR(byte);
+  ie = (struct input_event *) p;
   t = ie->time;
 
   rb_iv_set(self, "@time", rb_time_new(t.tv_sec, t.tv_usec));
@@ -56,6 +58,7 @@ VALUE input_event_raw_initialize(VALUE self, VALUE byte)
 
 VALUE input_event_to_byte_string(VALUE self)
 {
+  const char *cp;
   struct input_event ie;
 #ifdef RUBY_1_8
   struct timeval *t;
@@ -70,13 +73,16 @@ VALUE input_event_to_byte_string(VALUE self)
   ie.code = FIX2UINT(rb_iv_get(self, "@code"));
   ie.value = NUM2LONG(rb_iv_get(self, "@value"));
 
-  return rb_str_new(&ie, sizeof(struct input_event));
+  cp = (const char*) &ie;
+  return rb_str_new(cp, sizeof(struct input_event));
 }
 
 VALUE input_id_raw_initialize(VALUE self, VALUE byte)
 {
+  char *p;
   struct input_id *ii;
-  ii = RSTRING_PTR(byte);
+  p = RSTRING_PTR(byte);
+  ii = (struct input_id *) p;
 
   rb_iv_set(self, "@bustype", INT2FIX(ii->bustype));
   rb_iv_set(self, "@vendor", INT2FIX(ii->vendor));
@@ -87,6 +93,7 @@ VALUE input_id_raw_initialize(VALUE self, VALUE byte)
 }
 VALUE input_id_to_byte_string(VALUE self)
 {
+  const char *cp;
   struct input_id ii;
 
   ii.bustype = FIX2UINT(rb_iv_get(self, "@bustype"));
@@ -94,7 +101,8 @@ VALUE input_id_to_byte_string(VALUE self)
   ii.product = FIX2UINT(rb_iv_get(self, "@product"));
   ii.version = FIX2UINT(rb_iv_get(self, "@version"));
 
-  return rb_str_new(&ii, sizeof(struct input_id));
+  cp = (const char *) &ii;
+  return rb_str_new(cp, sizeof(struct input_id));
 }
 
 void Init_revdev(void)
